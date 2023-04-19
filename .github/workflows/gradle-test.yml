@@ -1,24 +1,24 @@
-name: Gradle Test
+name: Run unit tests on pull request to main branch
 
 on:
- pull_request:
-    types:
-      - opened
+  pull_request:
     branches:
-      - 'master'
-    
+      - main
+
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-    - name: Setup JDK
+    - name: Set up JDK
       uses: actions/setup-java@v2
       with:
         java-version: '17'
 
-    - name: Gradle Test
-      run: ./gradlew test
+    - name: Build with Gradle
+      run: ./gradlew build
+
+    - name: Run unit tests with Gradle
+      run: ./gradlew test -Pdistribution=${{ secrets.DISTRIBUTION }}
