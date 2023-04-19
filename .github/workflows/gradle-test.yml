@@ -1,0 +1,14 @@
+name: Gradle Test
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Gradle Test
+      run: ./gradlew test
